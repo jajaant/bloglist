@@ -15,9 +15,9 @@ const blogSchema = mongoose.Schema({
 
 const Blog = mongoose.model('Blog', blogSchema)
 
-console.log(process.argv)
-
 const mongoUrl = process.env.MONGODB_URI
+
+console.log('connecting to', mongoUrl)
 mongoose.connect(mongoUrl)
   .then(result => {
     console.log('connected to MongoDB')
