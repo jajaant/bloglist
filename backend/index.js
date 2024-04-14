@@ -3,28 +3,11 @@ require('dotenv').config()
 const http = require('http')
 const express = require('express')
 const app = express()
+const Blog = require('./models/blog')
 const cors = require('cors')
-const mongoose = require('mongoose')
 
-const blogSchema = mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number
-})
 
-const Blog = mongoose.model('Blog', blogSchema)
 
-const mongoUrl = process.env.MONGODB_URI
-
-console.log('connecting to', mongoUrl)
-mongoose.connect(mongoUrl)
-  .then(result => {
-    console.log('connected to MongoDB')
-  })
-  .catch((error) => {
-    console.log('error connecting to MongoDB:', error.message)
-  })
 
 app.use(cors())
 app.use(express.json())
