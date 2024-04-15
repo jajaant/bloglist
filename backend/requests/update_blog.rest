@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/661d554e11527cca51625130
+Content-Type: application/json
+
+{
+"title": "päivitys",
+"author": "päivittäjä",
+"url": "www.jee.fi",
+"likes": -100
+}
