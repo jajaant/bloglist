@@ -36,13 +36,12 @@ test('one valid blog can be posted', async () => {
 
 
 test('returns the same number of blogs as there are in the database', async () => {
-  const blogsInDB = await helper.blogsInDb()
 
   const response = await api
     .get('/api/blogs')
     .expect(200)
 
-  expect(response.body.length).toBe(blogsInDB.length)
+  expect(response.body.length).toBe(helper.initialBlogs.length)
 })
 
 afterAll(async () => {
