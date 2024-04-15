@@ -57,6 +57,23 @@ test('one valid blog can be posted', async () => {
   )
 })
 
+test('one blog can be deleted', async () => {
+  const blogsAtStart = await helper.blogsInDB()
+  const blogToDelete = blogsAtStart[blogsAtStart.length -1]
+
+  await api
+    .delete(`/api/blogs/${blogToDelete.id}`)
+    .expect(204)
+
+  const blogsAtEnd = await helper.blogsInDB()
+
+  expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length -1)
+
+  const contents = blogsAtEnd.map(r => r.id)
+
+  expect(contents).not.toContain(blogToDelete.id)
+})
+
 afterAll(async () => {
   await mongoose.connection.close()
 })
