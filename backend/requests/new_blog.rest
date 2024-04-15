@@ -5,5 +5,5 @@ Content-Type: application/json
 "title": "fdfdfdghgh",
 "author": "jeejee",
 "url": "www.jee.fi",
-"likes": 545477
+"likes": 0
 }
