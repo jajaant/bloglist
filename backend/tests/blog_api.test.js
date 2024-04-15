@@ -20,9 +20,23 @@ test('blogs are returned as json', async () => {
     .expect('Content-Type', /application\/json/)
 })
 
+
+
+test('returns the same number of blogs as there are in the database', async () => {
+
+  await api
+    .get('/api/blogs')
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await helper.blogsInDB()
+
+  expect(response).toHaveLength(helper.initialBlogs.length)
+})
+
 test('one valid blog can be posted', async () => {
   const newBlog = {
-    title: 'Canonical boolean reduction',
+    title: 'Canonical integer reduction',
     author: 'Edsger W. Dijkstra',
     url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
     likes: 12
@@ -39,20 +53,8 @@ test('one valid blog can be posted', async () => {
 
   const contents = response.map(r => r.title)
   expect(contents).toContainEqual(
-    'Canonical boolean reduction'
+    'Canonical integer reduction'
   )
-})
-
-test('returns the same number of blogs as there are in the database', async () => {
-
-  await api
-    .get('/api/blogs')
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
-
-  const response = await helper.blogsInDB()
-
-  expect(response).toHaveLength(helper.initialBlogs.length)
 })
 
 afterAll(async () => {
