@@ -2,8 +2,9 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
+"url": "www.jee.fi",
 "title": "TOIMIIKO HÄ",
 "author": "jeejee",
-"url": "www.jee.fi",
+"userID": "661e6fd5fb8379b7744ae4e0",
 "likes": 0
 }
