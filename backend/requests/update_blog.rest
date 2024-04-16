@@ -4,6 +4,6 @@ Content-Type: application/json
 {
 "title": "päivitys",
 "author": "päivittäjä",
-"url": "www.jee.fi",
+"url": "www.joo.fi",
 "likes": -100
 }

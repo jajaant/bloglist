@@ -4,7 +4,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imxpc
 
 {
 "url": "www.jee.fi",
-"title": "TOIMIIKO HÄ2",
+"title": "TOIMIIKO HÄ",
 "author": "jeejee",
 "userID": "661e7d2d27ff7dcac5513f4a",
 "likes": 0
