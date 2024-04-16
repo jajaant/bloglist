@@ -1,11 +1,11 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imxpc8OkeXMiLCJpZCI6IjY2MWU3OGM1YzUyNjM5ZmQ4Mzk5ZTk2MSIsImlhdCI6MTcxMzI3MzE2Nn0.lCKdnPB43ZHCLI7wrAcPDfGeP5Yh64DqcU5KejTaD5U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imxpc8OkeXMiLCJpZCI6IjY2MWU3ZDJkMjdmZjdkY2FjNTUxM2Y0YSIsImlhdCI6MTcxMzI3NDI1MCwiZXhwIjoxNzE1ODY2MjUwfQ.rx3ycRqPK0jxE1fuqmbSThbpdgq1JqwdtzfMCYQQN5c
 
 {
 "url": "www.jee.fi",
-"title": "TOIMIIKO HÄ",
+"title": "TOIMIIKO HÄ2",
 "author": "jeejee",
-"userID": "661e78c5c52639fd8399e961",
+"userID": "661e7d2d27ff7dcac5513f4a",
 "likes": 0
 }
