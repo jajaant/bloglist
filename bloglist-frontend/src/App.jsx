@@ -11,11 +11,16 @@ const App = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
+    blogService
+      .getAll()
+      .then(initialBlogs => {
+        setBlogs(initialBlogs)
+      })
   }, [])
 
   useEffect(() => {
@@ -26,6 +31,57 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
+
+  const addBlog = async (event) => {
+    event.preventDefault()
+    const blogObject = { title, author, url }
+    try {
+      const returnedBlog = await blogService.create(blogObject)
+      setBlogs(blogs.concat(returnedBlog))
+      setTitle('')
+      setAuthor('')
+      setUrl('')
+    } catch (exception) {
+      setErrorMessage('Failed to add blog')
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 5000)
+    }
+  }
+
+  const blogForm = () => (
+    <form onSubmit={addBlog}>
+    <div>
+      title:
+      <input
+      type="text"
+      value={title}
+      name="Title"
+      onChange={(e) => setTitle(e.target.value)}
+      />
+    </div>
+    <div>
+      author:
+      <input
+      type="text"
+      value={author}
+      name="Author"
+      onChange={(e) => setAuthor(e.target.value)}
+      />
+    </div>
+    <div>
+      url:
+      <input
+      type="text"
+      value={url}
+      name="URL"
+      onChange={(e) => setUrl(e.target.value)}
+      />   
+    </div>
+    <button type="submit">create</button>
+    </form>
+  )
+
 
   const loginForm = () => (
     <form onSubmit={handleLogin}>
@@ -50,46 +106,6 @@ const App = () => {
       <button type="submit">login</button>
     </form>      
   )
-
-  const blogForm = () => (
-    <form onSubmit={handleCreate}>
-    <div>
-      title:
-      <input
-      type="text"
-      value={title}
-      name="Title"
-      onChange={({ target }) => setTitle(target.value)}
-      />
-    </div>
-    <div>
-      author:
-      <input
-      type="text"
-      value={author}
-      name="Author"
-      onChange={({ target }) => setAuthor(target.value)}
-      />
-    </div>
-    <div>
-      url:
-      <input
-      type="text"
-      value={url}
-      name="URL"
-      onChange={({ target }) => setUrl(target.value)}
-      />
-    </div>
-    </form>
-  )
-
-  const handleCreate = async (event) => {
-    event.preventDefault()
-    await blogService.create({
-      title, author, url
-    })
-    console.log("jotain tapahtuu")
-  }
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -126,9 +142,7 @@ const App = () => {
           <p>{user.name} logged in <button onClick={handleLogOut}>logout</button></p>
           <h2>create new</h2>
           {blogForm()}
-          <button onClick={handleCreate}>create</button>
-          {blogs.map(blog =>
-          <Blog key={blog.id} blog={blog}/>)}
+          {blogs.map(blog => <Blog key={blog.id} blog={blog} />)}
         </div>
       ) : (
         <div>
@@ -136,6 +150,7 @@ const App = () => {
           {loginForm()}
         </div>
       )}
+      {errorMessage && <p>{errorMessage}</p>}
     </div>
   ) 
 }
