@@ -1,11 +1,11 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imxpc8OkeXMiLCJpZCI6IjY2MWU3ZDJkMjdmZjdkY2FjNTUxM2Y0YSIsImlhdCI6MTcxMzI3NDI1MCwiZXhwIjoxNzE1ODY2MjUwfQ.rx3ycRqPK0jxE1fuqmbSThbpdgq1JqwdtzfMCYQQN5c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RpIiwiaWQiOiI2NjNhYThhZGEwZmMxMTRiODY0NTRmZTEiLCJpYXQiOjE3MTUxMjA0MDYsImV4cCI6MTcxNzcxMjQwNn0.1iXtOyitCcTGhJItFOZ9rb4Mewi15aVvd4WadSF4aBw
 
 {
 "url": "www.jee.fi",
-"title": "TOIMIIKO HÄ",
-"author": "jeejee",
-"userID": "661e7d2d27ff7dcac5513f4a",
-"likes": 0
+"title": "TESTI BLOGI 2",
+"author": "toimi",
+"userID": "663aa8f5a0fc114b86454fe4",
+"likes": 110
 }
