@@ -13,7 +13,7 @@ import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [username, setUsername] = useState('') 
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [title, setTitle] = useState('')
@@ -26,7 +26,7 @@ const App = () => {
 
   const noteFormRef = useRef()
 
-  
+
 
   useEffect(() => {
     blogService
@@ -90,7 +90,7 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    
+
     try {
       const user = await loginService.login({
         username, password,
@@ -113,9 +113,9 @@ const App = () => {
     setUser(false)
   }
 
-  
 
-  
+
+
 
   return (
     <div>
@@ -125,24 +125,24 @@ const App = () => {
           <h2>blogs</h2>
           <p>{user.name} logged in <button onClick={handleLogOut}>logout</button></p>
           <Togglable buttonLabel="new note" ref={noteFormRef}>
-          <BlogForm createBlog={addBlog} notify={notify}/>
+            <BlogForm createBlog={addBlog} notify={notify}/>
           </Togglable>
           <Blog blogs={blogs} setBlogs={setBlogs} user={user}/>
         </div>
       ) : (
         <div>
-        <h2>login to application</h2>
-        <LoginForm
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-          handleLogin={handleLogin}
-        />
+          <h2>login to application</h2>
+          <LoginForm
+            username={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            handleLogin={handleLogin}
+          />
         </div>
       )}
     </div>
-  ) 
+  )
 }
 
 export default App
