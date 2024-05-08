@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import LoginForm from './components/LoginForm';
+import BlogForm from './components/BlogForm';
 import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -59,65 +61,6 @@ const App = () => {
     }
 }
 
-
-  const blogForm = () => (
-    <form onSubmit={addBlog}>
-    <div>
-      title:
-      <input
-      type="text"
-      value={title}
-      name="Title"
-      onChange={(e) => setTitle(e.target.value)}
-      />
-    </div>
-    <div>
-      author:
-      <input
-      type="text"
-      value={author}
-      name="Author"
-      onChange={(e) => setAuthor(e.target.value)}
-      />
-    </div>
-    <div>
-      url:
-      <input
-      type="text"
-      value={url}
-      name="URL"
-      onChange={(e) => setUrl(e.target.value)}
-      />   
-    </div>
-    <button type="submit">create</button>
-    </form>
-  )
-
-
-  const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <div>
-        username
-          <input
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password
-          <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">login</button>
-    </form>      
-  )
-
   const handleLogin = async (event) => {
     event.preventDefault()
     
@@ -151,16 +94,29 @@ const App = () => {
           <h2>blogs</h2>
           <p>{user.name} logged in <button onClick={handleLogOut}>logout</button></p>
           <h2>create new</h2>
-          {blogForm()}
-          {blogs.map(blog => <Blog key={blog.id} blog={blog} />)}
+          <BlogForm
+            addBlog={addBlog}
+            title={title}
+            setTitle={setTitle}
+            author={author}
+            setAuthor={setAuthor}
+            url={url}
+            setUrl={setUrl}
+          />
+          <Blog blogs={blogs} />
         </div>
       ) : (
         <div>
-          <h1>log in to application</h1>
-          {loginForm()}
+        <h2>login to application</h2>
+        <LoginForm
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          handleLogin={handleLogin}
+        />
         </div>
       )}
-      {errorMessage &&<p>{errorMessage}</p>}
     </div>
   ) 
 }
