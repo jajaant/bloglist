@@ -8,6 +8,9 @@ const App = () => {
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -48,6 +51,46 @@ const App = () => {
     </form>      
   )
 
+  const blogForm = () => (
+    <form onSubmit={handleCreate}>
+    <div>
+      title:
+      <input
+      type="text"
+      value={title}
+      name="Title"
+      onChange={({ target }) => setTitle(target.value)}
+      />
+    </div>
+    <div>
+      author:
+      <input
+      type="text"
+      value={author}
+      name="Author"
+      onChange={({ target }) => setAuthor(target.value)}
+      />
+    </div>
+    <div>
+      url:
+      <input
+      type="text"
+      value={url}
+      name="URL"
+      onChange={({ target }) => setUrl(target.value)}
+      />
+    </div>
+    </form>
+  )
+
+  const handleCreate = async (event) => {
+    event.preventDefault()
+    await blogService.create({
+      title, author, url
+    })
+    console.log("jotain tapahtuu")
+  }
+
   const handleLogin = async (event) => {
     event.preventDefault()
     
@@ -81,6 +124,9 @@ const App = () => {
         <div>
           <h2>blogs</h2>
           <p>{user.name} logged in <button onClick={handleLogOut}>logout</button></p>
+          <h2>create new</h2>
+          {blogForm()}
+          <button onClick={handleCreate}>create</button>
           {blogs.map(blog =>
           <Blog key={blog.id} blog={blog}/>)}
         </div>
