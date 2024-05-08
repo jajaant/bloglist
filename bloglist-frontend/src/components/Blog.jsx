@@ -29,7 +29,7 @@ const BlogList = ({ blogs, setBlogs, user }) => {
         filteredBlogs.sort((a, b) => b.likes - a.likes)
         setBlogs(filteredBlogs)
     }
-    console.log(blogs)
+    
     return (
       <div>
           {blogs.sort((a, b) => b.likes - a.likes).map(blog => (
