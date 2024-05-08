@@ -3,7 +3,7 @@ import React from 'react'
 import LikeButton from './LikeButton'
 import blogService from '../services/blogs'
 
-const BlogList = ({ blogs, setBlogs }) => {
+const BlogList = ({ blogs, setBlogs, user }) => {
     const handleUpdate = async (blog) => {
     const updatedBlog = {
         author: blog.author,
@@ -29,24 +29,28 @@ const BlogList = ({ blogs, setBlogs }) => {
         filteredBlogs.sort((a, b) => b.likes - a.likes)
         setBlogs(filteredBlogs)
     }
-
+    console.log(blogs)
     return (
-        <div>
-            {blogs.sort((a, b) => b.likes - a.likes).map(blog => (
-                <div key={blog.id} style={{ border: '2px solid #000000', padding: '10px', marginBottom: '5px' }}>
-                    <div>{blog.title} {blog.author}</div>
-                    <div>{blog.url}</div>
-                    <div>likes {blog.likes}</div>
-                    <div>{blog.user.name}</div>
-                    <LikeButton blog={blog} onUpdate={handleUpdate} />
-                    <button onClick={() => handleRemove(blog.id)}>Remove</button>
-                </div>
-            ))}
-        </div>
-    )
+      <div>
+          {blogs.sort((a, b) => b.likes - a.likes).map(blog => (
+              <div key={blog.id} style={{ border: '2px solid #000000', padding: '10px', marginBottom: '5px' }}>
+                  <div>{blog.title} {blog.author}</div>
+                  <div>{blog.url}</div>
+                  <div>likes {blog.likes}</div>
+                  <div>{blog.user.name}</div>
+                  <LikeButton blog={blog} onUpdate={handleUpdate} />
+                  {user && blog.user.username === user.username && (
+                      <button onClick={() => handleRemove(blog.id)}>Remove</button>
+                  )}
+              </div>
+          ))}
+      </div>
+  )
+  
 }
 
 export default BlogList
+
 
 
 
