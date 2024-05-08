@@ -6,7 +6,7 @@
 
 export default Blog*/
 
-import React from 'react';
+import React from 'react'
 
 const BlogList = ({ blogs }) => {
   return (
@@ -17,7 +17,7 @@ const BlogList = ({ blogs }) => {
         </div>
       ))}
     </div>
-  );
-};
+  )
+}
 
 export default BlogList

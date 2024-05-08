@@ -1,13 +1,12 @@
 import { useState } from 'react'
 
-const BlogForm = ({ createBlog, notify }) => {
+const BlogForm = ({ createBlog }) => {
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
 
     const addBlog = (event) => {
         event.preventDefault()
-        try {
         createBlog({
             title: title,
             author: author,
@@ -16,11 +15,7 @@ const BlogForm = ({ createBlog, notify }) => {
         setTitle('')
         setAuthor('')
         setUrl('')
-        notify(`a new blog '${title}' by ${author} added`, 'success')
-      } catch (exception) {
-        notify('Failed to add blog', 'error')
       }
-    }
 
     return (
       <div>
@@ -32,7 +27,7 @@ const BlogForm = ({ createBlog, notify }) => {
       type="text"
       value={title}
       name="Title"
-      onChange={(event) => setTitle(event.target.value)}
+      onChange={(e) => setTitle(e.target.value)}
       />
     </div>
     <div>
@@ -41,7 +36,7 @@ const BlogForm = ({ createBlog, notify }) => {
       type="text"
       value={author}
       name="Author"
-      onChange={(event) => setAuthor(event.target.value)}
+      onChange={(e) => setAuthor(e.target.value)}
       />
     </div>
     <div>
@@ -50,7 +45,7 @@ const BlogForm = ({ createBlog, notify }) => {
       type="text"
       value={url}
       name="URL"
-      onChange={(event) => setUrl(event.target.value)}
+      onChange={(e) => setUrl(e.target.value)}
       />   
     </div>
     <button type="submit">create</button>

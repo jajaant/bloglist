@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
-import LoginForm from './components/LoginForm';
-import BlogForm from './components/BlogForm';
+import LoginForm from './components/LoginForm'
+import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import Togglable from './components/Togglable'
+
+
+
+
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -17,6 +22,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [notification, setNotification] = useState(null)
   const [notificationType, setNotificationType] = useState('')
+  const [loginVisible, setLoginVisible] = useState(false)
 
   
 
@@ -46,20 +52,38 @@ const App = () => {
     }, 3500)
   }
 
-  const addBlog = async (event) => {
-    event.preventDefault()
-    const blogObject = { title, author, url }
-    try {
-      const returnedBlog = await blogService.create(blogObject)
-      setBlogs(blogs.concat(returnedBlog))
-      setTitle('')
-      setAuthor('')
-      setUrl('')
-      notify(`A new blog ${title} by ${author} added!`, 'success')
-    } catch (exception) {
-      notify('Failed to add blog', 'error')
-    }
-}
+  const addBlog = (blogObject) => {
+    blogService
+      .create(blogObject)
+      .then(returnedBlog => {
+        setBlogs(blogs.concat(returnedBlog))
+      })
+  }
+
+  /*const blogForm = () => {
+    const hideWhenVisible = { display: loginVisible ? 'none' : '' }
+    const showWhenVisible = { display: loginVisible ? '' : 'none' }
+
+    return (
+      <div>
+        <div style={hideWhenVisible}>
+          <button onClick={() => setLoginVisible(true)}>new note</button>
+        </div>
+        <div style={showWhenVisible}>
+          <LoginForm
+            title={username}
+            author={password}
+            url={url}
+            handleTitleChange={({ target }) => setTitle(target.value)}
+            handleAuthorChange={({ target }) => setAuthor(target.value)}
+            handleUrlChange={({ target }) => setUrl(target.value)}
+            handleSubmit={addBlog}
+          />
+          <button onClick={() => setLoginVisible(false)}>cancel</button>
+        </div>
+      </div>
+    )
+  }*/
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -75,7 +99,7 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
-      notify('Logged in successfully!', 'success')
+      notify(`${username} logged in succesfully`, 'success')
     } catch (exception) {
       notify('Wrong username or password', 'error')
     }
@@ -93,16 +117,9 @@ const App = () => {
         <div>
           <h2>blogs</h2>
           <p>{user.name} logged in <button onClick={handleLogOut}>logout</button></p>
-          <h2>create new</h2>
-          <BlogForm
-            addBlog={addBlog}
-            title={title}
-            setTitle={setTitle}
-            author={author}
-            setAuthor={setAuthor}
-            url={url}
-            setUrl={setUrl}
-          />
+          <Togglable buttonLabel="new note">
+          <BlogForm createBlog={addBlog} notify={notify}/>
+          </Togglable>
           <Blog blogs={blogs} />
         </div>
       ) : (
