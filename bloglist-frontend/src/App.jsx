@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -12,6 +13,8 @@ const App = () => {
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [notification, setNotification] = useState(null)
+  const [notificationType, setNotificationType] = useState('')
 
   
 
@@ -32,6 +35,15 @@ const App = () => {
     }
   }, [])
 
+  const notify = (message, type) => {
+    setNotification(message)
+    setNotificationType(type)
+    setTimeout(() => {
+      setNotification(null)
+      setNotificationType('')
+    }, 3500)
+  }
+
   const addBlog = async (event) => {
     event.preventDefault()
     const blogObject = { title, author, url }
@@ -41,13 +53,12 @@ const App = () => {
       setTitle('')
       setAuthor('')
       setUrl('')
+      notify(`A new blog ${title} by ${author} added!`, 'success')
     } catch (exception) {
-      setErrorMessage('Failed to add blog')
-      setTimeout(() => {
-        setErrorMessage('')
-      }, 5000)
+      notify('Failed to add blog', 'error')
     }
-  }
+}
+
 
   const blogForm = () => (
     <form onSubmit={addBlog}>
@@ -121,11 +132,9 @@ const App = () => {
       setUser(user)
       setUsername('')
       setPassword('')
+      notify('Logged in successfully!', 'success')
     } catch (exception) {
-      setErrorMessage('wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
+      notify('Wrong username or password', 'error')
     }
   }
 
@@ -136,6 +145,7 @@ const App = () => {
 
   return (
     <div>
+      <Notification message={notification} type={notificationType} />
       {user ? (
         <div>
           <h2>blogs</h2>
@@ -150,7 +160,7 @@ const App = () => {
           {loginForm()}
         </div>
       )}
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage &&<p>{errorMessage}</p>}
     </div>
   ) 
 }
