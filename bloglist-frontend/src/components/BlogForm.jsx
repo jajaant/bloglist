@@ -4,6 +4,7 @@ const BlogForm = ({ createBlog, notify }) => {
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
     const [url, setUrl] = useState('')
+    const [likes, setLikes] = useState(0)
 
     const addBlog = (event) => {
         event.preventDefault()
@@ -11,11 +12,13 @@ const BlogForm = ({ createBlog, notify }) => {
         createBlog({
             title: title,
             author: author,
-            url: url
+            url: url,
+            likes: likes
         })
         setTitle('')
         setAuthor('')
         setUrl('')
+        setLikes(0)
         notify(`a new blog '${title}' by ${author} added`, 'success')
       } catch (exception) {
         notify('Failed to add blog', 'error')

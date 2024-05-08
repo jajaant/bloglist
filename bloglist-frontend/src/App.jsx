@@ -110,6 +110,10 @@ const App = () => {
     setUser(false)
   }
 
+  
+
+  
+
   return (
     <div>
       <Notification message={notification} type={notificationType} />
@@ -120,7 +124,7 @@ const App = () => {
           <Togglable buttonLabel="new note">
           <BlogForm createBlog={addBlog} notify={notify}/>
           </Togglable>
-          <Blog blogs={blogs} />
+          <Blog blogs={blogs} setBlogs={setBlogs}/>
         </div>
       ) : (
         <div>
