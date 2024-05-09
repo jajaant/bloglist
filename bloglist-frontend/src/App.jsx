@@ -59,9 +59,19 @@ const App = () => {
     blogService
       .create(blogObject)
       .then(returnedBlog => {
-        setBlogs(blogs.concat(returnedBlog))
+
+        const blogObject = {
+          ...returnedBlog,
+          user: {
+            id: returnedBlog.user,
+            name: 'name',
+            username: 'username'
+          }
+        }
+        setBlogs(blogs.concat(blogObject))
       })
   }
+
 
   /*const blogForm = () => {
     const hideWhenVisible = { display: loginVisible ? 'none' : '' }
